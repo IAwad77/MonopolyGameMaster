@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-service
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: bank-service } }
+  template:
+    metadata: { labels: { app: bank-service } }
+    spec:
+      containers:
+        - name: bank-service
+          image: your-dockerhub-username/bank-service:latest
+          ports: [ { containerPort: 80 } ]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: bank-service }
+spec:
+  selector: { app: bank-service }
+  ports: [ { port: 80, targetPort: 80 } ]
+  type: ClusterIP
