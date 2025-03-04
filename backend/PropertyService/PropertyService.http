@@ -1,4 +1,4 @@
-@PropertyService_HostAddress = http://localhost:5103
+@PropertyService_HostAddress = http://localhost:5200
 
 GET {{PropertyService_HostAddress}}/weatherforecast/
 Accept: application/json
