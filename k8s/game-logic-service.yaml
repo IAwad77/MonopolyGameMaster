@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: game-logic-service }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: game-logic-service } }
+  template:
+    metadata: { labels: { app: game-logic-service } }
+    spec:
+      containers:
+        - name: gls
+          image: your-dockerhub-username/game-logic-service:latest
+          ports: [ { containerPort: 80 } ]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: game-logic-service }
+spec:
+  selector: { app: game-logic-service }
+  ports: [ { port: 80, targetPort: 80 } ]
+  type: ClusterIP
