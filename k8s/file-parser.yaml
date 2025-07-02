@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: file-parser-service }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: file-parser-service } }
+  template:
+    metadata: { labels: { app: file-parser-service } }
+    spec:
+      containers:
+        - name: fps
+          image: your-dockerhub-username/file-parser-service:latest
+          ports: [ { containerPort: 80 } ]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: file-parser-service }
+spec:
+  selector: { app: file-parser-service }
+  ports: [ { port: 80, targetPort: 80 } ]
+  type: ClusterIP
